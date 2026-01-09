@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VeresiyedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CariHareket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CariId" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" Nullable="false" />
+          <Property Name="Tur" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CariHesap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CariKodu" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="Unvan" Type="nvarchar" MaxLength="150" />
+          <Property Name="Yetkili" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gsm" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="150" />
+          <Property Name="Il" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eposta" Type="nvarchar" MaxLength="50" />
+          <Property Name="CariLimit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hesap" Type="bit" />
+          <Property Name="Kasa" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tur" Type="bit" />
+          <Property Name="Alacak" Type="nvarchar" MaxLength="50" />
+          <Property Name="Borc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirmaUnvani" Type="nvarchar" MaxLength="100" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="150" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Il" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eposta" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CariHareket_CariHesap">
+          <End Role="CariHesap" Type="Self.CariHesap" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CariHareket" Type="Self.CariHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CariHesap">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CariHareket">
+              <PropertyRef Name="CariId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VeresiyedbModelStoreContainer">
+          <EntitySet Name="CariHareket" EntityType="Self.CariHareket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CariHesap" EntityType="Self.CariHesap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CariHareket_CariHesap" Association="Self.FK_CariHareket_CariHesap">
+            <End Role="CariHesap" EntitySet="CariHesap" />
+            <End Role="CariHareket" EntitySet="CariHareket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VeresiyedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VeresiyedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kullanici" EntityType="VeresiyedbModel.Kullanici" />
+          <EntitySet Name="CariHesap" EntityType="VeresiyedbModel.CariHesap" />
+          <EntitySet Name="CariHareket" EntityType="VeresiyedbModel.CariHareket" />
+          <AssociationSet Name="FK_CariHareket_CariHesap" Association="VeresiyedbModel.FK_CariHareket_CariHesap">
+            <End Role="CariHesap" EntitySet="CariHesap" />
+            <End Role="CariHareket" EntitySet="CariHareket" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirmaUnvani" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Il" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CariHesap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CariKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="Unvan" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Yetkili" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gsm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Il" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CariLimit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hesap" Type="Boolean" />
+          <Property Name="Kasa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tur" Type="Boolean" />
+          <Property Name="Alacak" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Borc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CariHareket" Relationship="VeresiyedbModel.FK_CariHareket_CariHesap" FromRole="CariHesap" ToRole="CariHareket" />
+        </EntityType>
+        <EntityType Name="CariHareket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CariId" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Tur" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Tutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CariHesap" Relationship="VeresiyedbModel.FK_CariHareket_CariHesap" FromRole="CariHareket" ToRole="CariHesap" />
+        </EntityType>
+        <Association Name="FK_CariHareket_CariHesap">
+          <End Type="VeresiyedbModel.CariHesap" Role="CariHesap" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VeresiyedbModel.CariHareket" Role="CariHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CariHesap">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CariHareket">
+              <PropertyRef Name="CariId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VeresiyedbModelStoreContainer" CdmEntityContainer="VeresiyedbEntities">
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="VeresiyedbModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="FirmaUnvani" ColumnName="FirmaUnvani" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CariHesap">
+            <EntityTypeMapping TypeName="VeresiyedbModel.CariHesap">
+              <MappingFragment StoreEntitySet="CariHesap">
+                <ScalarProperty Name="Borc" ColumnName="Borc" />
+                <ScalarProperty Name="Alacak" ColumnName="Alacak" />
+                <ScalarProperty Name="Tur" ColumnName="Tur" />
+                <ScalarProperty Name="Kasa" ColumnName="Kasa" />
+                <ScalarProperty Name="Hesap" ColumnName="Hesap" />
+                <ScalarProperty Name="CariLimit" ColumnName="CariLimit" />
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Faks" ColumnName="Faks" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Gsm" ColumnName="Gsm" />
+                <ScalarProperty Name="Yetkili" ColumnName="Yetkili" />
+                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="CariKodu" ColumnName="CariKodu" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CariHareket">
+            <EntityTypeMapping TypeName="VeresiyedbModel.CariHareket">
+              <MappingFragment StoreEntitySet="CariHareket">
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Tur" ColumnName="Tur" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="CariId" ColumnName="CariId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
